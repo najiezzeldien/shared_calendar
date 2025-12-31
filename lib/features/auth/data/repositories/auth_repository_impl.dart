@@ -125,4 +125,82 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(AuthFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> verifyPhoneNumber({
+    required String phoneNumber,
+    required Function(String, int?) onCodeSent,
+    required Function(String) onVerificationFailed,
+  }) async {
+    try {
+      await _firebaseAuth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          // Auto-sign in on Android (not usually on Web/iOS)
+          // We can handle this if we want auto-sign in
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          onVerificationFailed(e.message ?? 'Verification Failed');
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          onCodeSent(verificationId, resendToken);
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
+      );
+      return const Right(null);
+    } catch (e) {
+      return Left(AuthFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AppUser>> signInWithPhoneNumber({
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    try {
+      final credential = PhoneAuthProvider.credential(
+        verificationId: verificationId,
+        smsCode: smsCode,
+      );
+      final userCredential = await _firebaseAuth.signInWithCredential(
+        credential,
+      );
+      final user = userCredential.user!;
+
+      // Sync to Firestore
+      try {
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          'id': user.uid,
+          'phoneNumber': user.phoneNumber,
+        }, SetOptions(merge: true));
+      } catch (e) {
+        debugPrint('Error syncing user to Firestore: $e');
+      }
+
+      return Right(
+        AppUser(id: user.uid, email: user.email ?? '', name: user.displayName),
+      );
+    } on FirebaseAuthException catch (e) {
+      return Left(AuthFailure(e.message ?? 'Sign in failed'));
+    } catch (e) {
+      return Left(AuthFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateUserOnboardingData({
+    required String uid,
+    required String accountType,
+  }) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'accountType': accountType,
+        'onboardingCompleted': true,
+      }, SetOptions(merge: true));
+      return const Right(null);
+    } catch (e) {
+      return Left(AuthFailure(e.toString()));
+    }
+  }
 }

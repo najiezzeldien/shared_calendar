@@ -1,5 +1,4 @@
 import 'package:device_calendar/device_calendar.dart';
-import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'device_calendar_repository.g.dart';

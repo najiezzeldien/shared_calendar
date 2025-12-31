@@ -16,6 +16,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   // Simple state to toggle between phone entry and SMS code verification
   bool _codeSent = false;
 
+  String? _verificationId;
+  final String _countryCode = "+966"; // Default based on UI
+
   @override
   void dispose() {
     _phoneController.dispose();
@@ -23,36 +26,48 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     super.dispose();
   }
 
-  void _sendSms() {
+  Future<void> _sendSms() async {
     final phone = _phoneController.text.trim();
     if (phone.isEmpty) return;
 
-    // Simulate sending SMS
-    setState(() {
-      _codeSent = true;
-    });
+    // Basic formatting: remove leading 0 if present since we add country code
+    String numberBody = phone;
+    if (numberBody.startsWith('0')) {
+      numberBody = numberBody.substring(1);
+    }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('SMS code sent: 123456 (Mock)')),
-    );
+    final fullPhoneNumber = '$_countryCode$numberBody';
+
+    await ref
+        .read(authControllerProvider.notifier)
+        .verifyPhoneNumber(
+          phoneNumber: fullPhoneNumber,
+          onCodeSent: (verificationId) {
+            if (!mounted) return;
+            setState(() {
+              _verificationId = verificationId;
+              _codeSent = true;
+            });
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('SMS code sent via Firebase')),
+            );
+          },
+          onVerificationFailed: (errorMessage) {
+            if (!mounted) return;
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text('Error: $errorMessage')));
+          },
+        );
   }
 
-  void _verifyCode() {
+  Future<void> _verifyCode() async {
     final code = _codeController.text.trim();
-    if (code == '123456') {
-      // Mock sign in with fixed email for now to match existing backend expectations
-      // In a real app, this would be exchange ID token.
-      ref
-          .read(authControllerProvider.notifier)
-          .signIn(
-            email: 'demo@groupcal.app',
-            password: 'password123',
-          ); // Using placeholder creds for existing auth
-    } else {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Invalid code. Try 123456')));
-    }
+    if (code.isEmpty || _verificationId == null) return;
+
+    await ref
+        .read(authControllerProvider.notifier)
+        .signInWithPhone(verificationId: _verificationId!, smsCode: code);
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../presentation/providers/auth_controller.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -95,10 +96,25 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
-  void _handleContinue() {
-    // TODO: Save selection to Firestore via Provider
-    // For now, navigate to Home
-    context.go('/home');
+  Future<void> _handleContinue() async {
+    await ref
+        .read(authControllerProvider.notifier)
+        .saveOnboardingData(accountType: _selectedType);
+
+    // Check if state has error
+    if (ref.read(authControllerProvider).hasError) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Failed to save selection. Please try again."),
+        ),
+      );
+      return;
+    }
+
+    if (mounted) {
+      context.go('/home');
+    }
   }
 
   Widget _buildSelectionCard({

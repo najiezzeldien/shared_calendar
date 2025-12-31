@@ -46,4 +46,63 @@ class AuthController extends _$AuthController {
       (success) => state = const AsyncData(null),
     );
   }
+
+  Future<void> verifyPhoneNumber({
+    required String phoneNumber,
+    required Function(String verificationId) onCodeSent,
+    required Function(String errorMessage) onVerificationFailed,
+  }) async {
+    state = const AsyncLoading();
+    final result = await ref
+        .read(authRepositoryProvider)
+        .verifyPhoneNumber(
+          phoneNumber: phoneNumber,
+          onCodeSent: (verificationId, resendToken) {
+            state = const AsyncData(null);
+            onCodeSent(verificationId);
+          },
+          onVerificationFailed: (message) {
+            state = AsyncError(message, StackTrace.current);
+            onVerificationFailed(message);
+          },
+        );
+
+    result.fold(
+      (failure) => state = AsyncError(failure.message, StackTrace.current),
+      (_) {}, // Initiated successfully
+    );
+  }
+
+  Future<void> signInWithPhone({
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    state = const AsyncLoading();
+    final result = await ref
+        .read(authRepositoryProvider)
+        .signInWithPhoneNumber(
+          verificationId: verificationId,
+          smsCode: smsCode,
+        );
+    result.fold(
+      (failure) => state = AsyncError(failure.message, StackTrace.current),
+      (success) => state = const AsyncData(null),
+    );
+  }
+
+  Future<void> saveOnboardingData({required String accountType}) async {
+    state = const AsyncLoading();
+    final user = await ref.read(authRepositoryProvider).getCurrentUser();
+    if (user != null) {
+      final result = await ref
+          .read(authRepositoryProvider)
+          .updateUserOnboardingData(uid: user.id, accountType: accountType);
+      result.fold(
+        (failure) => state = AsyncError(failure.message, StackTrace.current),
+        (_) => state = const AsyncData(null),
+      );
+    } else {
+      state = AsyncError("User not logged in", StackTrace.current);
+    }
+  }
 }

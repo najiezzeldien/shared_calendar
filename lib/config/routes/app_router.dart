@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_calendar/features/home/presentation/screens/responsive_home_scaffold.dart';
+import '../../features/search/presentation/pages/search_screen.dart';
+import '../../features/settings/presentation/pages/settings_screen.dart';
+import '../../features/settings/presentation/pages/help_center_screen.dart';
+import '../../features/settings/presentation/pages/visible_calendars_screen.dart';
+import '../../features/settings/presentation/pages/smart_alerts_screen.dart';
 import '../../features/navigation/presentation/screens/bottom_nav_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/calendar/presentation/pages/unified_calendar_screen.dart';
@@ -85,13 +90,35 @@ GoRouter goRouter(Ref ref) {
               ),
             ],
           ),
-          // Branch 3: Settings (Placeholder for now)
+          // Branch 3: Search
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/search',
+                builder: (context, state) => const SearchScreen(),
+              ),
+            ],
+          ),
+          // Branch 4: Settings
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: '/settings',
-                builder: (context, state) =>
-                    const Scaffold(body: Center(child: Text("Settings"))),
+                builder: (context, state) => const SettingsScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'help_center',
+                    builder: (context, state) => const HelpCenterScreen(),
+                  ),
+                  GoRoute(
+                    path: 'visible_calendars',
+                    builder: (context, state) => const VisibleCalendarsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'smart_alerts',
+                    builder: (context, state) => const SmartAlertsScreen(),
+                  ),
+                ],
               ),
             ],
           ),

@@ -18,5 +18,21 @@ abstract interface class AuthRepository {
 
   Future<Either<Failure, void>> signOut();
 
+  Future<Either<Failure, void>> verifyPhoneNumber({
+    required String phoneNumber,
+    required Function(String, int?) onCodeSent,
+    required Function(String) onVerificationFailed,
+  });
+
+  Future<Either<Failure, AppUser>> signInWithPhoneNumber({
+    required String verificationId,
+    required String smsCode,
+  });
+
+  Future<Either<Failure, void>> updateUserOnboardingData({
+    required String uid,
+    required String accountType,
+  });
+
   Future<AppUser?> getCurrentUser();
 }
