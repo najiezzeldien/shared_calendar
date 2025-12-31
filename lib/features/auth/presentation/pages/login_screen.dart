@@ -184,38 +184,50 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
             if (!_codeSent) ...[
               // Phone Input
+              // Phone Input Section
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey.shade300),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey.shade400),
                 ),
                 child: Row(
                   children: [
-                    const Icon(
-                      Icons.chat_bubble_outline,
-                      color: Colors.blue,
-                      size: 20,
+                    // Mock Country Selector (SA +966)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          right: BorderSide(color: Colors.grey.shade300),
+                        ),
+                      ),
+                      child: Row(
+                        children: const [
+                          // A simple flag icon or text
+                          Text("🇸🇦", style: TextStyle(fontSize: 20)),
+                          SizedBox(width: 8),
+                          Text(
+                            "SA +966",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          Icon(Icons.arrow_drop_down, color: Colors.grey),
+                        ],
+                      ),
                     ),
-                    const SizedBox(width: 8),
-                    // Mock US Flag
-                    const Text("🇺🇸", style: TextStyle(fontSize: 20)),
-                    const SizedBox(width: 8),
-                    const Text(
-                      "+1",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(width: 12),
-                    const VerticalDivider(),
                     Expanded(
                       child: TextField(
                         controller: _phoneController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
-                          hintText: "201-555-0123",
+                          hintText: "50 012 2768",
+                          contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                          labelText: "Phone number",
+                          floatingLabelStyle: TextStyle(color: Colors.red),
                         ),
                         keyboardType: TextInputType.phone,
                       ),
@@ -228,10 +240,79 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: _sendSms,
+                  onPressed: () {
+                    final phone = _phoneController.text.trim();
+                    if (phone.isEmpty) return;
+
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        title: const Center(
+                          child: Text(
+                            "Number confirmation",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "+966 - $phone", // Mocking formatted number
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            const Text(
+                              "Is your phone number above correct?",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                        actionsAlignment: MainAxisAlignment.center,
+                        actions: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context); // Close dialog
+                                  _sendSms(); // Proceed to send SMS
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  elevation: 0,
+                                ),
+                                child: const Text(
+                                  "YES",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const Divider(),
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text(
+                                  "EDIT",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFFCDD2), // Pinkish
-                    foregroundColor: Colors.red.shade900,
+                    backgroundColor: const Color(0xFFE57373), // Reddish
+                    foregroundColor: Colors.white,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
