@@ -1,0 +1,132 @@
+{
+    "@@locale": "en",
+    "appTitle": "Shared Calendar",
+    "dayView": "Day View",
+    "weekView": "Week View",
+    "monthView": "Month View",
+    "myGroups": "My Groups",
+    "logout": "Logout",
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "register": "Register",
+    "createGroup": "Create Group",
+    "groupName": "Group Name",
+    "joinGroup": "Join Group",
+    "eventTitle": "Event Title",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "save": "Save",
+    "cancel": "Cancel",
+    "repeats": "Repeats",
+    "doesNotRepeat": "Does not repeat",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "color": "Color",
+    "description": "Description",
+    "addEvent": "Add Event",
+    "welcome": "Welcome, {name}!",
+    "noGroupsYet": "No groups yet. Create or join one!",
+    "search": "Search",
+    "allCalendars": "All Calendars",
+    "lastUpdated": "Last updated",
+    "nextEvent": "Next event",
+    "unread": "Unread",
+    "archived": "Archived",
+    "addYourName": "Add your name",
+    "calendarAccounts": "Add your Calendar accounts",
+    "settings": "Settings",
+    "helpCenter": "Help Center",
+    "contactUs": "Contact us",
+    "userGuide": "User guide",
+    "guidedTour": "Guided Tour",
+    "account": "Account",
+    "language": "Language",
+    "firstDayOfWeek": "First Day Of Week",
+    "defaultCalendar": "Default calendar",
+    "groupIdLabel": "Group ID: {id}",
+    "create": "Create",
+    "join": "Join",
+    "joiningGroup": "Joining Group...",
+    "failedToJoin": "Failed to join group: {error}",
+    "everyDay": "Every day",
+    "everyWeek": "Every week",
+    "everyMonth": "Every month",
+    "cannotCreatePastEvent": "Cannot create event in the past",
+    "failedToSave": "Failed to save: {error}",
+    "deleteRecurringEvent": "Delete Recurring Event",
+    "deleteAll": "Delete All",
+    "deleteEvent": "Delete Event",
+    "deleteConfirmation": "Delete \"{title}\"?",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "delete": "Delete",
+    "error": "Error",
+    "groupCalendar": "Group Calendar",
+    "shareGroupMessage": "Join my group on Shared Calendar!\n\nGroup ID: {id}\nUse this ID to join via the app.\n\nLink: {link}",
+    "today": "Today",
+    "enterValidEmail": "Enter a valid email",
+    "passwordLengthError": "Password must be 6+ chars",
+    "createAccount": "Create an account",
+    "haveAccountLogin": "Have an account? Login",
+    "signUp": "Sign Up",
+    "membersCount": "{count, plural, =0{No members} =1{1 member} other{{count} members}}",
+    "@membersCount": {
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "@welcome": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@groupIdLabel": {
+        "placeholders": {
+            "id": {
+                "type": "String"
+            }
+        }
+    },
+    "@failedToJoin": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@failedToSave": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@deleteConfirmation": {
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "@shareGroupMessage": {
+        "placeholders": {
+            "id": {
+                "type": "String"
+            },
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "theme": "Theme",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode"
+}

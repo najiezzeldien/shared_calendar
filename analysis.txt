@@ -1,0 +1,21 @@
+Analyzing shared_calendar...                                    
+
+   info • Don't invoke 'print' in production code • lib/features/auth/data/repositories/auth_repository_impl.dart:53:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/features/auth/data/repositories/auth_repository_impl.dart:88:9 • avoid_print
+  error • Undefined name 'groupsControllerProvider' • lib/features/calendar/presentation/pages/calendar_screen.dart:200:31 • undefined_identifier
+  error • Expected a method, getter, setter or operator declaration • lib/features/groups/data/repositories/groups_repository_impl.dart:145:3 • expected_executable
+  error • Expected a method, getter, setter or operator declaration • lib/features/groups/data/repositories/groups_repository_impl.dart:145:5 • expected_executable
+   info • An uninitialized variable should have an explicit type annotation • lib/features/groups/data/repositories/groups_repository_impl.dart:145:6 • prefer_typing_uninitialized_variables
+   info • Missing type annotation • lib/features/groups/data/repositories/groups_repository_impl.dart:145:6 • strict_top_level_inference
+  error • Expected to find ';' • lib/features/groups/data/repositories/groups_repository_impl.dart:145:6 • expected_token
+  error • Variables must be declared using the keywords 'const', 'final', 'var' or a type name • lib/features/groups/data/repositories/groups_repository_impl.dart:145:6 • missing_const_final_var_or_type
+   info • Don't invoke 'print' in production code • lib/features/groups/presentation/providers/groups_controller.dart:49:11 • avoid_print
+   info • Don't invoke 'print' in production code • lib/features/groups/presentation/providers/groups_controller.dart:75:11 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:12:3 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:36:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:41:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:45:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:46:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:49:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:53:5 • avoid_print
+

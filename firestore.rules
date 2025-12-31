@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Groups collection
+    match /groups/{groupId} {
+      // Allow any authenticated user to read/create/join groups (MVP)
+      // For production: Check membership in 'members' array for read access
+      allow read, create, update: if isAuthenticated();
+      
+      // Events sub-collection
+      match /events/{eventId} {
+        allow read, write: if isAuthenticated();
+      }
+    }
+  }
+}

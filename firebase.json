@@ -1,0 +1,57 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "shared-calendar-bf9c0",
+                    "appId": "1:694730504476:android:cee957a0f2a5c0e368a2d9",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "ios": {
+                "default": {
+                    "projectId": "shared-calendar-bf9c0",
+                    "appId": "1:694730504476:ios:d4ff58cd8366f4ce68a2d9",
+                    "uploadDebugSymbols": false,
+                    "fileOutput": "ios/Runner/GoogleService-Info.plist"
+                }
+            },
+            "macos": {
+                "default": {
+                    "projectId": "shared-calendar-bf9c0",
+                    "appId": "1:694730504476:ios:d4ff58cd8366f4ce68a2d9",
+                    "uploadDebugSymbols": false,
+                    "fileOutput": "macos/Runner/GoogleService-Info.plist"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "shared-calendar-bf9c0",
+                    "configurations": {
+                        "android": "1:694730504476:android:cee957a0f2a5c0e368a2d9",
+                        "ios": "1:694730504476:ios:d4ff58cd8366f4ce68a2d9",
+                        "macos": "1:694730504476:ios:d4ff58cd8366f4ce68a2d9",
+                        "web": "1:694730504476:web:cb92d875bca5d1f468a2d9",
+                        "windows": "1:694730504476:web:f670600dc8febcb968a2d9"
+                    }
+                }
+            }
+        }
+    },
+    "firestore": {
+        "rules": "firestore.rules",
+        "indexes": "firestore.indexes.json"
+    },
+    "functions": [
+        {
+            "source": "functions",
+            "codebase": "default",
+            "ignore": [
+                "node_modules",
+                ".git",
+                "firebase-debug.log",
+                "firebase-debug.*.log"
+            ]
+        }
+    ]
+}

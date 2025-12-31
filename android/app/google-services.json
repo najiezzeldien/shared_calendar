@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "694730504476",
+    "project_id": "shared-calendar-bf9c0",
+    "storage_bucket": "shared-calendar-bf9c0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694730504476:android:cee957a0f2a5c0e368a2d9",
+        "android_client_info": {
+          "package_name": "com.example.shared_calendar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUehe35Oy7bDHWEC-zHNZj9mDqKRx2JoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
