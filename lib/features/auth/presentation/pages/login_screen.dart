@@ -69,7 +69,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget _buildDesktopLayout() {
     return Row(
       children: [
-        // Left Side: Illustration / Branding (Red/Pink Gradient)
+        // Left Side: Login Form (White)
+        Expanded(
+          flex: 4,
+          child: Container(
+            color: Colors.white, // Or a very light grey
+            child: Center(child: _buildLoginFormCard()),
+          ),
+        ),
+
+        // Right Side: Illustration / Branding (Red/Pink Gradient)
         Expanded(
           flex: 5,
           child: Container(
@@ -134,24 +143,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ),
             ),
-          ),
-        ),
-
-        // Right Side: Login Form (White)
-        // Note: Swapped sides? Screenshot had Form LEFT, Illus RIGHT.
-        // Let's match screenshot: Form (White Box) overlapping Branding?
-        // Actually screenshot is:
-        // Background is largely White with a Red wave at bottom right.
-        // A big White Card floats on the left.
-
-        // Let's adjust to match Screenshot EXACTLY:
-        // Full screen background with branding on right.
-        // Floating Card on Left.
-        Expanded(
-          flex: 4,
-          child: Container(
-            color: Colors.white, // Or a very light grey
-            child: Center(child: _buildLoginFormCard()),
           ),
         ),
       ],
