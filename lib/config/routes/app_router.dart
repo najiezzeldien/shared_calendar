@@ -12,6 +12,7 @@ import '../../features/groups/presentation/pages/join_group_screen.dart';
 import '../../features/groups/domain/entities/group_member.dart';
 
 import '../../features/events/presentation/pages/deep_link_event_screen.dart';
+import '../../features/auth/presentation/pages/onboarding_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -39,13 +40,17 @@ GoRouter goRouter(Ref ref) {
       }
 
       if (isLoggedIn && isLoginRoute) {
-        return '/home'; // Redirect to new Home
+        return '/onboarding'; // Redirect to Onboarding Flow for Redesign Verification
       }
 
       return null;
     },
     routes: [
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
+      GoRoute(
+        path: '/onboarding',
+        builder: (context, state) => const OnboardingScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return BottomNavScreen(navigationShell: navigationShell);
